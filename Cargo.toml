@@ -1,0 +1,11 @@
+[package]
+name = "downforce"
+version = "0.1.0"
+authors = ["smortime <schuymortimer@gmail.com>"]
+edition = "2018"
+repository = "https://github.com/smortime/downforce"
+license = "MIT"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.8"
