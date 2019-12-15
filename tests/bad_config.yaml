@@ -1,0 +1,6 @@
+workers_count: 2
+worker_addresses: [5001, 5002, 5003]
+shard_size: 800
+input_dir: in
+output_dir: tests/out
+output_file_count: 3

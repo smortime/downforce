@@ -20,9 +20,17 @@ fn load_config() {
 }
 
 #[test]
-fn validate_config() {
+fn validate_bad_config() {
     let path_str = "./tests/test_config.yaml";
     let path = Path::new(path_str);
     let conf = Config::read_config(&path).unwrap();
     assert!(conf.validate(), "Config failed to validate!");
+}
+
+#[test]
+fn validate_good_config() {
+    let path_str = "./tests/bad_config.yaml";
+    let path = Path::new(path_str);
+    let conf = Config::read_config(&path).unwrap();
+    assert!(!conf.validate(), "Validate approved bad config!")
 }
