@@ -5,7 +5,7 @@ use std::path::Path;
 pub struct Config {
     pub workers_count: i8,
     pub worker_addresses: Vec<String>,
-    pub shard_size: i32,
+    pub shard_size: u64,
     pub input_dir: String,
     pub output_dir: String,
     pub output_file_count: i8,
