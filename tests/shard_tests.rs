@@ -1,5 +1,6 @@
 use downforce::config::Config;
 use downforce::shard::{get_shard_count, Shard, get_shards, get_total_input_size};
+use std::fs;
 
 fn get_test_config() -> Config {
     Config {
@@ -23,14 +24,13 @@ fn validate_get_input_total_size() {
 fn validate_get_shard_count() {
     let conf = get_test_config();
     let shard_count = get_shard_count(&conf);
-    assert_eq!(shard_count, 3);
+    assert_eq!(shard_count, 4);
 }
 
-//#[test]
-//fn validate_get_shards() {
-//    let conf = get_test_config();
-//    let mut shards: Vec<Shard> = Vec::new();
-//    let shard_count = get_shard_count(&conf);
-//    get_shards(&conf, &mut shards);
-//    assert_eq!(shards.len() as i16, shard_count);
-//}
+#[test]
+fn validate_get_shards() {
+    let conf = get_test_config();
+    let shard_count = get_shard_count(&conf);
+    let shards = get_shards(&conf);
+    assert_eq!(shards.len() as i16, shard_count);
+}
