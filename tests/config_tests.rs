@@ -13,7 +13,7 @@ fn load_config() {
         output_file_count: 3
     };
 
-    let path_str = "./tests/test_config.yaml";
+    let path_str = "./tests/config/test_config.yaml";
     let path = Path::new(path_str);
     let conf = Config::read_config(&path).unwrap();
     assert_eq!(conf, expected_conf);
@@ -21,7 +21,7 @@ fn load_config() {
 
 #[test]
 fn validate_bad_config() {
-    let path_str = "./tests/test_config.yaml";
+    let path_str = "./tests/config/test_config.yaml";
     let path = Path::new(path_str);
     let conf = Config::read_config(&path).unwrap();
     assert!(conf.validate(), "Config failed to validate!");
@@ -29,7 +29,7 @@ fn validate_bad_config() {
 
 #[test]
 fn validate_good_config() {
-    let path_str = "./tests/bad_config.yaml";
+    let path_str = "./tests/config/bad_config.yaml";
     let path = Path::new(path_str);
     let conf = Config::read_config(&path).unwrap();
     assert!(!conf.validate(), "Validate approved bad config!")

@@ -1,5 +1,5 @@
 use downforce::config::Config;
-use downforce::shard::{get_shard_count, Shard, get_shards, get_total_input_size};
+use downforce::shard::{get_shard_count, get_shards, get_total_input_size};
 use std::fs;
 use glob::glob;
 
