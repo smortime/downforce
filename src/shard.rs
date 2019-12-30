@@ -3,13 +3,13 @@ use std::fs::{read_dir, metadata, File};
 use std::io::{BufReader, BufRead, BufWriter, Write};
 
 // Represents the shard of work to be processed during map phase
-pub struct Shard {
-    pub id: i16,
-    pub file_path: String,
-    pub size: u64,
+struct Shard {
+    id: i16,
+    file_path: String,
+    size: u64,
 }
 
-pub fn get_shards(conf: &Config) -> Vec<Shard> {
+fn get_shards(conf: &Config) -> Vec<Shard> {
     let mut shards: Vec<Shard> = Vec::new();
     let mut index = 0;
     let mut shard_file_size = 0;
@@ -56,7 +56,7 @@ pub fn get_shards(conf: &Config) -> Vec<Shard> {
     shards
 }
 
-pub fn get_total_input_size(conf: &Config) -> u64 {
+fn get_total_input_size(conf: &Config) -> u64 {
     let files = read_dir(conf.input_dir.to_string())
         .expect("Unable to read input directory");
 
@@ -67,7 +67,7 @@ pub fn get_total_input_size(conf: &Config) -> u64 {
     )
 }
 
-pub fn get_shard_count(conf: &Config) -> i16 {
+fn get_shard_count(conf: &Config) -> i16 {
     let total_inputs_size = get_total_input_size(&conf);
     (total_inputs_size / conf.shard_size + 1) as i16
 }

@@ -1,3 +1,4 @@
-pub mod shard;
+mod shard;
+mod scoreboard;
+
 pub mod config;
-pub mod scoreboard;
