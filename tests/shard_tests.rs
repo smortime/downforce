@@ -1,6 +1,7 @@
 use downforce::config::Config;
 use downforce::shard::{get_shard_count, Shard, get_shards, get_total_input_size};
 use std::fs;
+use glob::glob;
 
 fn get_test_config() -> Config {
     Config {
@@ -10,6 +11,17 @@ fn get_test_config() -> Config {
         input_dir: "tests/in".to_string(),
         output_dir: "tests/out".to_string(),
         output_file_count: 3
+    }
+}
+
+fn delete_temp_files(output_dir: &String) {
+    let pattern = format!("{}/temp_*.txt", output_dir);
+
+    for entry in glob(&pattern).expect("Failed to read glob pattern") {
+        match entry {
+            Ok(path) => fs::remove_file(path).expect("Failed to delete file"),
+            Err(e) => println!("{:?}", e),
+        }
     }
 }
 
@@ -33,4 +45,5 @@ fn validate_get_shards() {
     let shard_count = get_shard_count(&conf);
     let shards = get_shards(&conf);
     assert_eq!(shards.len() as i16, shard_count);
+    delete_temp_files(&conf.output_dir);
 }
