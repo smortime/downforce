@@ -1,5 +1,6 @@
 use serde::{Serialize, Deserialize};
 use std::path::Path;
+use std::collections::HashMap;
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Config {
@@ -34,8 +35,24 @@ impl Config {
             return false;
         }
 
+        if !check_no_duplicate_ports(&self.worker_addresses) {
+            println!("Duplicate ports provided");
+            return false;
+        }
         true
     }
+}
+
+fn check_no_duplicate_ports(ports: &[String]) -> bool {
+    let mut ports_map = HashMap::new();
+
+    for port in ports {
+        if ports_map.contains_key(port) {
+            return false;
+        }
+        ports_map.insert(port, 1);
+    }
+    true
 }
 
 #[cfg(test)]
@@ -74,5 +91,13 @@ mod tests {
         let path = Path::new(path_str);
         let conf = Config::read_config(&path).unwrap();
         assert!(!conf.validate(), "Validate approved bad config!")
+    }
+
+    #[test]
+    fn validate_no_duplicate_ports() {
+        let ports = vec!["5001".to_string(), "5002".to_string(), "5003".to_string()];
+        assert!(check_no_duplicate_ports(&ports), "Failed to verify no duplicate ports");
+        let ports_dup = vec!["5002".to_string(), "5002".to_string(), "5003".to_string()];
+        assert!(!check_no_duplicate_ports(&ports_dup), "Failed to verify duplicate ports");
     }
 }

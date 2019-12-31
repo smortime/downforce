@@ -51,7 +51,7 @@ mod tests {
     #[test]
     fn validate_scoreboard_new() {
         let ports = vec![5001, 5002, 5003];
-        let mut scoreboard = Scoreboard::new(1, &ports);
+        let scoreboard = Scoreboard::new(1, &ports);
         assert_eq!(scoreboard.id, 1);
         assert_eq!(scoreboard.workers.len(), ports.len());
     }
