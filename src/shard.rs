@@ -72,6 +72,7 @@ fn get_shard_count(conf: &Config) -> i16 {
     (total_inputs_size / conf.shard_size + 1) as i16
 }
 
+#[cfg_attr(tarpaulin, skip)]
 #[cfg(test)]
 pub mod test_utils {
 
@@ -82,7 +83,7 @@ pub mod test_utils {
     pub fn get_test_config() -> Config {
         Config {
             workers_count: 3,
-            worker_addresses: vec!["5001".to_string(), "5002".to_string(), "5003".to_string()],
+            worker_addresses: vec![5001, 5002, 5003],
             shard_size: 800,
             input_dir: "tests/in".to_string(),
             output_dir: "tests/out".to_string(),

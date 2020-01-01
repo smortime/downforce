@@ -5,7 +5,7 @@ use std::collections::HashMap;
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Config {
     pub workers_count: i8,
-    pub worker_addresses: Vec<String>,
+    pub worker_addresses: Vec<i32>,
     pub shard_size: u64,
     pub input_dir: String,
     pub output_dir: String,
@@ -43,7 +43,7 @@ impl Config {
     }
 }
 
-fn check_no_duplicate_ports(ports: &[String]) -> bool {
+fn check_no_duplicate_ports(ports: &[i32]) -> bool {
     let mut ports_map = HashMap::new();
 
     for port in ports {
@@ -64,7 +64,7 @@ mod tests {
 
         let expected_conf: Config = Config {
             workers_count: 3,
-            worker_addresses: vec!["5001".to_string(), "5002".to_string(), "5003".to_string()],
+            worker_addresses: vec![5001, 5002, 5003],
             shard_size: 800,
             input_dir: "tests/in".to_string(),
             output_dir: "tests/out".to_string(),
@@ -95,9 +95,9 @@ mod tests {
 
     #[test]
     fn validate_no_duplicate_ports() {
-        let ports = vec!["5001".to_string(), "5002".to_string(), "5003".to_string()];
+        let ports = vec![5001, 5002, 5003];
         assert!(check_no_duplicate_ports(&ports), "Failed to verify no duplicate ports");
-        let ports_dup = vec!["5002".to_string(), "5002".to_string(), "5003".to_string()];
+        let ports_dup = vec![5002, 5002, 5003];
         assert!(!check_no_duplicate_ports(&ports_dup), "Failed to verify duplicate ports");
     }
 }
